@@ -1,9 +1,9 @@
 import TableRow from "@mui/material/TableRow";
-import {DataHeadersTable} from "../../App";
 import TableCell from "@mui/material/TableCell";
 import {IconButton} from "@mui/material";
 import {ArrowCircleDown, ArrowCircleUp} from "@mui/icons-material";
 import * as React from "react";
+import {DataHeadersTable} from "../../constants/constants";
 
 type PropsType = {
     dataHeadersTable:DataHeadersTable[]

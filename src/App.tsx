@@ -1,94 +1,51 @@
-import React, {useState} from 'react';
-import {BasicTable} from "./cpmponents/BasicTable";
+import React, { useState } from 'react';
+import { BasicTable } from "./cpmponents/BasicTable";
 import st from './App.module.css'
-import foto1 from './images/IMG_20220422_173423.jpg'
-import foto2 from './images/mercedes1.png'
-import foto3 from './images/js1jpeg.jpeg'
-import foto4 from './images/social.png'
-import foto5 from './images/train1.jpg'
-
-export type DataHeadersTable = {
-    id: string
-    name: string
-    width: string
-    arrowDirection: boolean
-}
-
-export type DataContentTable = {
-    id: string,
-    img: string,
-    name: string,
-    date: string,
-    number: number
-}
-
+import { DATA_CONTENT_TABLE, DATA_HEADERS_TABLE, DataContentTable, DataHeadersTable } from "./constants/constants";
+import { sortByName, sortByDate, sortByNumber } from './utils/sortFunctions';
 
 function App() {
 
-    const [dataHeadersTable, setDataHeadersTable] = useState<DataHeadersTable[]>([
-        {id: '1', name: 'Картинка', width: '150px', arrowDirection: true},
-        {id: '2', name: 'Наименование', width: '260px', arrowDirection: true},
-        {id: '3', name: 'Дата', width: '120px', arrowDirection: true},
-        {id: '4', name: 'Номер', width: '120px', arrowDirection: true}
-    ])
+    const [dataHeadersTable, setDataHeadersTable] = useState<DataHeadersTable[]>(DATA_HEADERS_TABLE);
 
-    const [dataContentTable,setDataContentTable]=useState<DataContentTable[]>([
-        {id: '1', img: foto1, name: 'Ясное имя', date: '52023', number: 35678},
-        {id: '2', img: foto2, name: 'Название неизвестно ', date: '12023', number: 25678},
-        {id: '3', img: foto3, name: 'Без имени ', date: '02023', number: 95678},
-        {
-            id: '4',
-            img: foto4,
-            name: 'Наименование скрыто от  пользователей. Доступ только администратору',
-            date: '7023',
-            number: 15678
-        },
-        {
-            id: '5',
-            img: foto5,
-            name: 'ЖолыыылодылопшгыололылоорплдыошгпылоплцрдгнрпыолполдцкеИмя',
-            date: '22023',
-            number: 75678
-        },
+    const [dataContentTable, setDataContentTable] = useState<DataContentTable[]>(DATA_CONTENT_TABLE);
 
-    ])
+    const copyData = dataContentTable.map(e => ({ ...e }));
 
-    const copyData=dataContentTable.map(e=>({...e}))
+    const sortField = (field: string, arrowDirection: boolean) => {
+        let sortedData = [...copyData];
 
-    const sortFildName = (arrowDirection:boolean) => {
-        if(arrowDirection){
-            setDataContentTable(copyData.sort((a,b)=>a.name.toLowerCase()<b.name.toLowerCase()?-1:1))
-        } else {     setDataContentTable(copyData.sort((a,b)=>a.name.toLowerCase()<b.name.toLowerCase()?-1:1).reverse())}
-    }
+        if (field === 'name') {
+            sortedData = sortByName(sortedData, arrowDirection);
+        } else if (field === 'date') {
+            sortedData = sortByDate(sortedData, arrowDirection);
+        } else if (field === 'number') {
+            sortedData = sortByNumber(sortedData, arrowDirection);
+        }
 
-    const sortFildDate = (arrowDirection:boolean) => {
-        if(arrowDirection){
-            setDataContentTable(copyData.sort((a,b)=> (Number(a.date)-Number(b.date))))
-        }else {setDataContentTable(copyData.sort((a,b)=> (Number(b.date)-Number(a.date))))}
-    }
+        setDataContentTable(sortedData);
+    };
 
-    const sortFildNumber = (arrowDirection:boolean) => {
-        if(arrowDirection){
-            setDataContentTable(copyData.sort((a,b)=> (a.number-b.number)))
-        }else {setDataContentTable(copyData.sort((a,b)=> (b.number-a.number)))}
-    }
+    const changeArrowDirection = (id: string, arrowDirection: boolean, name: string) => {
+        setDataHeadersTable(dataHeadersTable.map(el => el.id === id ? { ...el, arrowDirection: !arrowDirection } : el));
 
-    const changeArrowDirection = (id: string, arrowDirection: boolean,name:string) => {
-
-        setDataHeadersTable(dataHeadersTable.map(el=>el.id===id?{...el,arrowDirection:!arrowDirection}:el))
-
-        if(name==='Наименование'){sortFildName(arrowDirection)}
-        if(name==='Дата'){sortFildDate(arrowDirection)}
-        if(name==='Номер'){sortFildNumber(arrowDirection)}
-    }
-
+        if (name === 'Наименование') {
+            sortField('name', arrowDirection);
+        } else if (name === 'Дата') {
+            sortField('date', arrowDirection);
+        } else if (name === 'Номер') {
+            sortField('number', arrowDirection);
+        }
+    };
 
     return (
         <div className={st.main}>
-            <BasicTable dataHeadersTable={dataHeadersTable} dataContentTable={dataContentTable}
-                        changeArrowDirection={changeArrowDirection}/>
+            <BasicTable
+                dataHeadersTable={dataHeadersTable}
+                dataContentTable={dataContentTable}
+                changeArrowDirection={changeArrowDirection}
+            />
         </div>
     );
 }
-
 export default App;

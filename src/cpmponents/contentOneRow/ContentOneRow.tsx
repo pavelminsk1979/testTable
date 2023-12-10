@@ -1,5 +1,6 @@
-import {DataContentTable} from "../../App";
+
 import st from './ContentOneRow.module.css'
+import {DataContentTable} from "../../constants/constants";
 
 type PropsType = {
     contentOneRow:DataContentTable

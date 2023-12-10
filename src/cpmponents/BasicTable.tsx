@@ -3,13 +3,14 @@ import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import Paper from '@mui/material/Paper';
-import {DataContentTable, DataHeadersTable} from "../App";
+
 import {BasicModal} from "./basicModal/BasicModal";
 import {useState} from "react";
 import {ContentOneRow} from "./contentOneRow/ContentOneRow";
 import {SwitchComponent} from "./switchComponent/SwitchComponent";
 import {HeadersTable} from "./headersTable/HeadersTable";
 import {ContentTable} from "./contentTable/ContentTable";
+import {DataContentTable, DataHeadersTable} from "../constants/constants";
 
 type PropsType = {
     dataHeadersTable: DataHeadersTable[]

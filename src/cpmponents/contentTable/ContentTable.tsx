@@ -3,7 +3,8 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import st from "../BasicTable.module.css";
 import * as React from "react";
-import {DataContentTable} from "../../App";
+import {DataContentTable} from "../../constants/constants";
+
 
 
 type PropsType = {
