@@ -27,9 +27,9 @@ function App() {
 
     const [dataHeadersTable, setDataHeadersTable] = useState<DataHeadersTable[]>([
         {id: '1', name: 'Картинка', width: '150px', arrowDirection: true},
-        {id: '2', name: 'Наименование', width: '300px', arrowDirection: true},
-        {id: '3', name: 'Дата', width: '100px', arrowDirection: true},
-        {id: '4', name: 'Номер', width: '100px', arrowDirection: true}
+        {id: '2', name: 'Наименование', width: '260px', arrowDirection: true},
+        {id: '3', name: 'Дата', width: '120px', arrowDirection: true},
+        {id: '4', name: 'Номер', width: '120px', arrowDirection: true}
     ])
 
     const [dataContentTable,setDataContentTable]=useState<DataContentTable[]>([
